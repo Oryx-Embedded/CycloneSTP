@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 1.9.8
+ * @version 2.0.0
  **/
 
 //Switch to the appropriate trace level
@@ -34,9 +34,9 @@
 //Dependencies
 #include "core/net.h"
 #include "mibs/mib_common.h"
-#include "bridge_mib_module.h"
-#include "bridge_mib_impl.h"
-#include "bridge_mib_impl_stp.h"
+#include "mibs/bridge_mib_module.h"
+#include "mibs/bridge_mib_impl.h"
+#include "mibs/bridge_mib_impl_stp.h"
 #include "core/crypto.h"
 #include "encoding/asn1.h"
 #include "encoding/oid.h"
@@ -91,7 +91,7 @@ error_t bridgeMibSetDot1dStpPriority(const MibObject *object, const uint8_t *oid
    error_t error;
 
    //Ensure that the supplied value is valid
-   if(value->integer >= 0)
+   if(value->integer >= 0 && value->integer <= 65535)
    {
 #if (STP_SUPPORT == ENABLED)
       //Valid STP bridge context?
@@ -1441,7 +1441,7 @@ error_t bridgeMibSetDot1dStpPortPriority(uint16_t portNum,
    error_t error;
 
    //Ensure that the supplied value is valid
-   if(value->integer >= 0)
+   if(value->integer >= 0 && value->integer <= 255)
    {
 #if (STP_SUPPORT == ENABLED)
       //Valid STP bridge context?

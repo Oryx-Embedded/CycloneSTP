@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 1.9.8
+ * @version 2.0.0
  **/
 
 //Switch to the appropriate trace level
@@ -34,12 +34,12 @@
 //Dependencies
 #include "core/net.h"
 #include "mibs/mib_common.h"
-#include "bridge_mib_module.h"
-#include "bridge_mib_impl.h"
-#include "bridge_mib_impl_base.h"
-#include "bridge_mib_impl_stp.h"
-#include "bridge_mib_impl_tp.h"
-#include "bridge_mib_impl_static.h"
+#include "mibs/bridge_mib_module.h"
+#include "mibs/bridge_mib_impl.h"
+#include "mibs/bridge_mib_impl_base.h"
+#include "mibs/bridge_mib_impl_stp.h"
+#include "mibs/bridge_mib_impl_tp.h"
+#include "mibs/bridge_mib_impl_static.h"
 #include "core/crypto.h"
 #include "encoding/asn1.h"
 #include "encoding/oid.h"

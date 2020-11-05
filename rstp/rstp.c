@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 1.9.8
+ * @version 2.0.0
  **/
 
 //Switch to the appropriate trace level
@@ -1118,7 +1118,7 @@ error_t rstpSetPortNum(RstpBridgeContext *context, uint_t portIndex,
       }
       else
       {
-         //The port index is not out of range
+         //The port index is out of range
          error = ERROR_INVALID_PORT;
       }
 
@@ -1169,7 +1169,7 @@ error_t rstpSetPortAddr(RstpBridgeContext *context, uint_t portIndex,
       }
       else
       {
-         //The port index is not out of range
+         //The port index is out of range
          error = ERROR_INVALID_PORT;
       }
 
@@ -1460,7 +1460,7 @@ error_t rstpGetPortNum(RstpBridgeContext *context, uint_t portIndex,
       }
       else
       {
-         //The port index is not out of range
+         //The port index is out of range
          error = ERROR_INVALID_PORT;
       }
 

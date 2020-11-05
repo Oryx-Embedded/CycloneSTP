@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 1.9.8
+ * @version 2.0.0
  **/
 
 //Switch to the appropriate trace level
@@ -118,7 +118,7 @@ void stpTick(StpBridgeContext *context)
             macOperState = interface->switchDriver->getLinkState(interface, i + 1);
 
             //Link state change detected?
-            if(macOperState && !port->macOperState)
+            if(macOperState && !port->macOperState && interface->linkState)
             {
                //Debug message
                TRACE_INFO("Port %" PRIu8 ": Link is up...\r\n", port->portIndex);

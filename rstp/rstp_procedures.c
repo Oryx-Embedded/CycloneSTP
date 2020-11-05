@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 1.9.8
+ * @version 2.0.0
  **/
 
 //Switch to the appropriate trace level
@@ -41,6 +41,16 @@
 
 //Check TCP/IP stack configuration
 #if (RSTP_SUPPORT == ENABLED)
+
+//Port roles
+const RstpParamName rstpPortRoles[] =
+{
+   {STP_PORT_ROLE_DISABLED,   "Disabled"},
+   {STP_PORT_ROLE_ROOT,       "Root"},
+   {STP_PORT_ROLE_DESIGNATED, "Designated"},
+   {STP_PORT_ROLE_ALTERNATE,  "Alternate"},
+   {STP_PORT_ROLE_BACKUP,     "Backup"}
+};
 
 
 /**
@@ -1022,6 +1032,17 @@ void rstpUpdtRolesTree(RstpBridgeContext *context)
       {
          //Just for sanity
       }
+   }
+
+   //Loop through the ports of the bridge
+   for(i = 0; i < context->numPorts; i++)
+   {
+      //Point to the current bridge port
+      port = &context->ports[i];
+
+      //Display selected port role
+      TRACE_DEBUG("Port %" PRIu8 ": Selected role is %s\r\n", port->portIndex,
+         rstpGetParamName(port->selectedRole, rstpPortRoles, arraysize(rstpPortRoles)));
    }
 }
 
