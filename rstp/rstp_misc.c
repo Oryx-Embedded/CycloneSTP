@@ -6,7 +6,7 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
- * Copyright (C) 2019-2020 Oryx Embedded SARL. All rights reserved.
+ * Copyright (C) 2019-2021 Oryx Embedded SARL. All rights reserved.
  *
  * This file is part of CycloneSTP Open.
  *
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.0.0
+ * @version 2.0.2
  **/
 
 //Switch to the appropriate trace level
@@ -616,7 +616,7 @@ error_t rstpAddStaticFdbEntry(RstpBridgeContext *context, const MacAddr *macAddr
 /**
  * @brief Remove an entry from the static MAC table
  * @param[in] context Pointer to the RSTP bridge context
- * @param[in] entry Forwarding database entry to remove from the table
+ * @param[in] macAddr MAC address to be removed from the table
  * @return Error code
  **/
 
@@ -783,7 +783,6 @@ error_t rstpConfigurePermanentDatabase(RstpBridgeContext *context)
 /**
  * @brief Unconfigure the permanent database
  * @param[in] context Pointer to the RSTP bridge context
- * @return Error code
  **/
 
 void rstpUnconfigurePermanentDatabase(RstpBridgeContext *context)

@@ -6,7 +6,7 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
- * Copyright (C) 2019-2020 Oryx Embedded SARL. All rights reserved.
+ * Copyright (C) 2019-2021 Oryx Embedded SARL. All rights reserved.
  *
  * This file is part of CycloneSTP Open.
  *
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.0.0
+ * @version 2.0.2
  **/
 
 //Switch to the appropriate trace level
@@ -691,7 +691,7 @@ error_t stpMgmtGetTimeSinceTopologyChange(StpBridgeContext *context,
 /**
  * @brief Set port priority
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[in] value Port priority
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
  *   value and commits the change if the value is valid. If FALSE, the bridges
@@ -763,7 +763,7 @@ error_t stpMgmtSetPortPriority(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Set administrative bridge port state
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[in] value Administrative bridge port state
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
  *   value and commits the change if the value is valid. If FALSE, the bridges
@@ -875,7 +875,7 @@ error_t stpMgmtSetAdminPortState(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Set administrative port path cost
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[in] value Administrative port path cost
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
  *   value and commits the change if the value is valid. If FALSE, the bridges
@@ -927,7 +927,7 @@ error_t stpMgmtSetPortPathCost(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the MAC address assigned to the port
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value MAC address of the individual MAC entity for the port
  * @return Error code
  **/
@@ -959,7 +959,7 @@ error_t stpMgmtGetPortAddr(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the priority assigned to the port
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Port priority
  * @return Error code
  **/
@@ -991,7 +991,7 @@ error_t stpMgmtGetPortPriority(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the administrative port state
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Administrative port state
  * @return Error code
  **/
@@ -1023,7 +1023,7 @@ error_t stpMgmtGetAdminPortState(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the current MAC operational state
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value MAC operational state
  * @return Error code
  **/
@@ -1055,7 +1055,7 @@ error_t stpMgmtGetMacOperState(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the current value of the port path cost
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Port path cost
  * @return Error code
  **/
@@ -1088,7 +1088,7 @@ error_t stpMgmtGetPortPathCost(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the current state of the port
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Port state
  * @return Error code
  **/
@@ -1163,7 +1163,7 @@ error_t stpMgmtGetPortState(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the assigned role of the port
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Port role
  * @return Error code
  **/
@@ -1215,7 +1215,7 @@ error_t stpMgmtGetPortRole(StpBridgeContext *context, uint_t portIndex,
 /**
  * @brief Get the bridge identifier of the designated root bridge
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Bridge identifier
  * @return Error code
  **/
@@ -1249,7 +1249,7 @@ error_t stpMgmtGetPortDesignatedRoot(StpBridgeContext *context,
 /**
  * @brief Get the designated cost of the port
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Designated cost of the port
  * @return Error code
  **/
@@ -1282,7 +1282,7 @@ error_t stpMgmtGetPortDesignatedCost(StpBridgeContext *context,
 /**
  * @brief Get the bridge identifier of the designated bridge
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Bridge identifier
  * @return Error code
  **/
@@ -1315,7 +1315,7 @@ error_t stpMgmtGetPortDesignatedBridge(StpBridgeContext *context,
 /**
  * @brief Get the port identifier of the designated bridge
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Port identifier
  * @return Error code
  **/
@@ -1348,7 +1348,7 @@ error_t stpMgmtGetPortDesignatedPort(StpBridgeContext *context,
 /**
  * @brief Get the number of times the port has transitioned to Forwarding state
  * @param[in] context Pointer to the STP bridge context
- * @param[in] portNum Port index
+ * @param[in] portIndex Port index
  * @param[out] value Number of transitions to Forwarding state
  * @return Error code
  **/

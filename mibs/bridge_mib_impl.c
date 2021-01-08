@@ -6,7 +6,7 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
- * Copyright (C) 2019-2020 Oryx Embedded SARL. All rights reserved.
+ * Copyright (C) 2019-2021 Oryx Embedded SARL. All rights reserved.
  *
  * This file is part of CycloneSTP Open.
  *
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.0.0
+ * @version 2.0.2
  **/
 
 //Switch to the appropriate trace level
@@ -76,7 +76,7 @@ error_t bridgeMibInit(void)
 
 /**
  * @brief Attach STP bridge context
- * @param[in] Pointer to the STP bridge context
+ * @param[in] context Pointer to the STP bridge context
  * @return Error code
  **/
 
@@ -106,7 +106,7 @@ error_t bridgeMibSetStpBridgeContext(StpBridgeContext *context)
 
 /**
  * @brief Attach RSTP bridge context
- * @param[in] Pointer to the RSTP bridge context
+ * @param[in] context Pointer to the RSTP bridge context
  * @return Error code
  **/
 
@@ -173,7 +173,7 @@ uint_t bridgeMibGetNumPorts(void)
 
 
 /**
- * @brief Get the port index that matches the specified port
+ * @brief Get the port index that matches the specified port number
  * @param[in] portNum Port number
  * @return Port index
  **/
@@ -232,9 +232,9 @@ uint_t bridgeMibGetPortIndex(uint16_t portNum)
 
 
 /**
- * @brief Get the port index that matches the specified port
- * @param[in] portNum Port number
- * @return Port index
+ * @brief Get the port number that matches the specified port index
+ * @param[in] portIndex Port index
+ * @return Port number
  **/
 
 uint16_t bridgeMibGetPortNum(uint16_t portIndex)
