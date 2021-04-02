@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.0.2
+ * @version 2.0.4
  **/
 
 //Switch to the appropriate trace level
@@ -1240,8 +1240,7 @@ error_t rstpSetAdminPortState(RstpBridgeContext *context, uint_t portIndex,
       //Acquire exclusive access to the RSTP bridge context
       rstpLock(context);
       //Perform management operation
-      error = rstpMgmtSetAdminPortState(context, portIndex, value,
-            TRUE);
+      error = rstpMgmtSetAdminPortState(context, portIndex, value, TRUE);
       //Release exclusive access to the RSTP bridge context
       rstpUnlock(context);
    }
@@ -1275,8 +1274,7 @@ error_t rstpSetAdminPortPathCost(RstpBridgeContext *context, uint_t portIndex,
       //Acquire exclusive access to the RSTP bridge context
       rstpLock(context);
       //Perform management operation
-      error = rstpMgmtSetAdminPortPathCost(context, portIndex, value,
-            TRUE);
+      error = rstpMgmtSetAdminPortPathCost(context, portIndex, value, TRUE);
       //Release exclusive access to the RSTP bridge context
       rstpUnlock(context);
    }
@@ -1311,8 +1309,7 @@ error_t rstpSetAdminPointToPointMac(RstpBridgeContext *context,
       //Acquire exclusive access to the RSTP bridge context
       rstpLock(context);
       //Perform management operation
-      error = rstpMgmtSetAdminPointToPointMac(context, portIndex, value,
-            TRUE);
+      error = rstpMgmtSetAdminPointToPointMac(context, portIndex, value, TRUE);
       //Release exclusive access to the RSTP bridge context
       rstpUnlock(context);
    }
@@ -1414,8 +1411,7 @@ error_t rstpSetProtocolMigration(RstpBridgeContext *context, uint_t portIndex,
       //Acquire exclusive access to the RSTP bridge context
       rstpLock(context);
       //Perform management operation
-      error = rstpMgmtSetProtocolMigration(context, portIndex, value,
-            TRUE);
+      error = rstpMgmtSetProtocolMigration(context, portIndex, value, TRUE);
       //Release exclusive access to the RSTP bridge context
       rstpUnlock(context);
    }
