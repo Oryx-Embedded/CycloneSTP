@@ -1,5 +1,5 @@
 /**
- * @file rstp_misc.c
+ * @file rstp_bpdu.c
  * @brief BPDU processing
  *
  * @section License
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.0.4
+ * @version 2.1.0
  **/
 
 //Switch to the appropriate trace level
@@ -356,6 +356,8 @@ error_t rstpSendBpdu(RstpBridgePort *port, const RstpBpdu *bpdu,
          ancillary.srcMacAddr = port->macAddr;
          //Specify the destination port
          ancillary.port = port->portIndex;
+         //BPDUs are transmitted regardless of the port state
+         ancillary.override = TRUE;
 
          //The Bridge Group Address is used as destination MAC address to carry
          //BPDUs between STP entities
