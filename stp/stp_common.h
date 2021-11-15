@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.1.0
+ * @version 2.1.2
  **/
 
 #ifndef _STP_COMMON_H
@@ -63,13 +63,13 @@
 #endif
 
 //Version string
-#define CYCLONE_STP_VERSION_STRING "2.1.0"
+#define CYCLONE_STP_VERSION_STRING "2.1.2"
 //Major version
 #define CYCLONE_STP_MAJOR_VERSION 2
 //Minor version
 #define CYCLONE_STP_MINOR_VERSION 1
 //Revision number
-#define CYCLONE_STP_REV_NUMBER 0
+#define CYCLONE_STP_REV_NUMBER 2
 
 //C++ guard
 #ifdef __cplusplus
