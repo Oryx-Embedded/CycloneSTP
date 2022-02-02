@@ -6,7 +6,7 @@
  *
  * SPDX-License-Identifier: GPL-2.0-or-later
  *
- * Copyright (C) 2019-2021 Oryx Embedded SARL. All rights reserved.
+ * Copyright (C) 2019-2022 Oryx Embedded SARL. All rights reserved.
  *
  * This file is part of CycloneSTP Open.
  *
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.1.2
+ * @version 2.1.4
  **/
 
 //Switch to the appropriate trace level
@@ -47,7 +47,7 @@
  * @param[in] context Pointer to the RSTP bridge context
  * @param[in] value Protocol version
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -88,7 +88,7 @@ error_t rstpMgmtSetVersion(RstpBridgeContext *context, uint_t value,
  * @param[in] context Pointer to the RSTP bridge context
  * @param[in] value Bridge priority
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -148,7 +148,7 @@ error_t rstpMgmtSetBridgePriority(RstpBridgeContext *context, uint16_t value,
  * @param[in] context Pointer to the RSTP bridge context
  * @param[in] value Value of the Bridge Max Age parameter, in seconds
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -208,7 +208,7 @@ error_t rstpMgmtSetBridgeMaxAge(RstpBridgeContext *context, uint_t value,
  * @param[in] context Pointer to the RSTP bridge context
  * @param[in] value Value of the Bridge Hello Time parameter, in seconds
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -268,7 +268,7 @@ error_t rstpMgmtSetBridgeHelloTime(RstpBridgeContext *context, uint_t value,
  * @param[in] context Pointer to the RSTP bridge context
  * @param[in] value Value of the Bridge Forward Delay parameter, in seconds
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -331,7 +331,7 @@ error_t rstpMgmtSetBridgeForwardDelay(RstpBridgeContext *context, uint_t value,
  * @param[in] context Pointer to the RSTP bridge context
  * @param[in] value Value of the Transmit Hold Count parameter
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -383,7 +383,7 @@ error_t rstpMgmtSetTxHoldCount(RstpBridgeContext *context, uint_t value,
  * @param[in] context Pointer to the RSTP bridge context
  * @param[in] value Value of the Ageing Time parameter
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -796,7 +796,7 @@ error_t rstpMgmtGetTimeSinceTopologyChange(RstpBridgeContext *context,
  * @param[in] portIndex Port index
  * @param[in] value Port priority
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -852,7 +852,7 @@ error_t rstpMgmtSetPortPriority(RstpBridgeContext *context, uint_t portIndex,
  * @param[in] portIndex Port index
  * @param[in] value Administrative bridge port state
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -902,7 +902,7 @@ error_t rstpMgmtSetAdminPortState(RstpBridgeContext *context, uint_t portIndex,
  * @param[in] portIndex Port index
  * @param[in] value Administrative port path cost
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -963,7 +963,7 @@ error_t rstpMgmtSetAdminPortPathCost(RstpBridgeContext *context, uint_t portInde
  * @param[in] value Administrative point-to-point status of the LAN segment
  *   attached to this port
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -1021,7 +1021,7 @@ error_t rstpMgmtSetAdminPointToPointMac(RstpBridgeContext *context,
  * @param[in] portIndex Port index
  * @param[in] value Administrative value of the Edge Port parameter
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -1071,7 +1071,7 @@ error_t rstpMgmtSetAdminEdgePort(RstpBridgeContext *context, uint_t portIndex,
  * @param[in] portIndex Port index
  * @param[in] value AutoEdgePort parameter for the port
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
@@ -1119,7 +1119,7 @@ error_t rstpMgmtSetAutoEdgePort(RstpBridgeContext *context, uint_t portIndex,
  * @param[in] value Value of the mcheck parameter. Setting mcheck variable to
  *   FALSE has no effect
  * @param[in] commit If this flag is TRUE, the bridge verifies the parameter
- *   value and commits the change if the value is valid. If FALSE, the bridges
+ *   value and commits the change if the value is valid. If FALSE, the bridge
  *   only performs the verification and does not take any further action
  * @return Error code
  **/
