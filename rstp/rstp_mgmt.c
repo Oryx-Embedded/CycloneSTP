@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.2.2
+ * @version 2.2.4
  **/
 
 //Switch to the appropriate trace level
@@ -740,7 +740,7 @@ error_t rstpMgmtGetForwardDelay(RstpBridgeContext *context, uint_t *value)
 
    //The Forward Delay value determines how long the port stays in each of the
    //Listening and Learning states, which precede the Forwarding state
-   *value = context->bridgeTimes.forwardDelay;
+   *value = context->rootTimes.forwardDelay;
 
    //Successful processing
    return NO_ERROR;
