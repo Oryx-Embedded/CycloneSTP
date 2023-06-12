@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.2.4
+ * @version 2.3.0
  **/
 
 #ifndef _STP_COMMON_H
@@ -63,13 +63,13 @@
 #endif
 
 //Version string
-#define CYCLONE_STP_VERSION_STRING "2.2.4"
+#define CYCLONE_STP_VERSION_STRING "2.3.0"
 //Major version
 #define CYCLONE_STP_MAJOR_VERSION 2
 //Minor version
-#define CYCLONE_STP_MINOR_VERSION 2
+#define CYCLONE_STP_MINOR_VERSION 3
 //Revision number
-#define CYCLONE_STP_REV_NUMBER 4
+#define CYCLONE_STP_REV_NUMBER 0
 
 //C++ guard
 #ifdef __cplusplus
@@ -139,11 +139,11 @@ typedef enum
  * @brief Bridge identifier
  **/
 
-typedef __start_packed struct
+typedef __packed_struct
 {
    uint16_t priority; //0-1
    MacAddr addr;      //2-7
-} __end_packed StpBridgeId;
+} StpBridgeId;
 
 
 //CodeWarrior or Win32 compiler?

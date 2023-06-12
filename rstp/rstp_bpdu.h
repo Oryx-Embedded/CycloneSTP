@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.2.4
+ * @version 2.3.0
  **/
 
 #ifndef _RSTP_BPDU_H
@@ -91,7 +91,7 @@ typedef enum
  * @brief Rapid Spanning Tree BPDU
  **/
 
-typedef __start_packed struct
+typedef __packed_struct
 {
    uint16_t protocolId;       //0-1
    uint8_t protocolVersionId; //2
@@ -106,7 +106,7 @@ typedef __start_packed struct
    uint16_t helloTime;        //31-32
    uint16_t forwardDelay;     //33-34
    uint8_t version1Length;    //35
-} __end_packed RstpBpdu;
+} RstpBpdu;
 
 
 //CodeWarrior or Win32 compiler?
