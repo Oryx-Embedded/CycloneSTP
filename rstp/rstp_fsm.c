@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.3.0
+ * @version 2.3.2
  **/
 
 //Switch to the appropriate trace level
@@ -226,7 +226,7 @@ void rstpFsm(RstpBridgeContext *context)
 void rstpFsmError(RstpBridgeContext *context)
 {
    //Debug message
-   TRACE_ERROR("RSTP finite state machine error!\r\n");
+   TRACE_ERROR("RSTP state machine error!\r\n");
 }
 
 #endif
