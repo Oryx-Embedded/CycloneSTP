@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.3.2
+ * @version 2.3.4
  **/
 
 #ifndef _STP_COMMON_H
@@ -63,13 +63,13 @@
 #endif
 
 //Version string
-#define CYCLONE_STP_VERSION_STRING "2.3.2"
+#define CYCLONE_STP_VERSION_STRING "2.3.4"
 //Major version
 #define CYCLONE_STP_MAJOR_VERSION 2
 //Minor version
 #define CYCLONE_STP_MINOR_VERSION 3
 //Revision number
-#define CYCLONE_STP_REV_NUMBER 2
+#define CYCLONE_STP_REV_NUMBER 4
 
 //C++ guard
 #ifdef __cplusplus
@@ -129,8 +129,10 @@ typedef enum
 } StpPortRole;
 
 
-//CodeWarrior or Win32 compiler?
-#if defined(__CWCC__) || defined(_WIN32)
+//CC-RX, CodeWarrior or Win32 compiler?
+#if defined(__CCRX__)
+   #pragma pack
+#elif defined(__CWCC__) || defined(_WIN32)
    #pragma pack(push, 1)
 #endif
 
@@ -146,8 +148,10 @@ typedef __packed_struct
 } StpBridgeId;
 
 
-//CodeWarrior or Win32 compiler?
-#if defined(__CWCC__) || defined(_WIN32)
+//CC-RX, CodeWarrior or Win32 compiler?
+#if defined(__CCRX__)
+   #pragma unpack
+#elif defined(__CWCC__) || defined(_WIN32)
    #pragma pack(pop)
 #endif
 
