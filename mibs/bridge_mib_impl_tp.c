@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.4.2
+ * @version 2.4.4
  **/
 
 //Switch to the appropriate trace level
@@ -265,7 +265,7 @@ error_t bridgeMibGetDot1dTpFdbEntry(const MibObject *object, const uint8_t *oid,
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dTpFdbAddress object?
-   if(!strcmp(object->name, "dot1dTpFdbAddress"))
+   if(osStrcmp(object->name, "dot1dTpFdbAddress") == 0)
    {
       //Make sure the buffer is large enough to hold the entire object
       if(*valueLen >= sizeof(MacAddr))
@@ -284,7 +284,7 @@ error_t bridgeMibGetDot1dTpFdbEntry(const MibObject *object, const uint8_t *oid,
       }
    }
    //dot1dTpFdbPort object?
-   else if(!strcmp(object->name, "dot1dTpFdbPort"))
+   else if(osStrcmp(object->name, "dot1dTpFdbPort") == 0)
    {
       //This object indicates the port number of the port on which a frame
       //having a source address equal to the value of the corresponding
@@ -292,7 +292,7 @@ error_t bridgeMibGetDot1dTpFdbEntry(const MibObject *object, const uint8_t *oid,
       value->integer = entry.srcPort;
    }
    //dot1dTpFdbStatus object?
-   else if(!strcmp(object->name, "dot1dTpFdbStatus"))
+   else if(osStrcmp(object->name, "dot1dTpFdbStatus") == 0)
    {
       //This object indicates the status of this entry
       value->integer = BRIDGE_MIB_FDB_STATUS_LEARNED;
@@ -447,35 +447,35 @@ error_t bridgeMibGetDot1dTpPortEntry(const MibObject *object, const uint8_t *oid
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dTpPort object?
-   if(!strcmp(object->name, "dot1dTpPort"))
+   if(osStrcmp(object->name, "dot1dTpPort") == 0)
    {
       //This object indicates the port number of the port for which this entry
       //contains transparent bridging management information
       value->integer = dot1dTpPort;
    }
    //dot1dTpPortMaxInfo object?
-   else if(!strcmp(object->name, "dot1dTpPortMaxInfo"))
+   else if(osStrcmp(object->name, "dot1dTpPortMaxInfo") == 0)
    {
       //The maximum size of the INFO (non-MAC) field that this port will
       //receive or transmit
       value->integer = ETH_MTU;
    }
    //dot1dTpPortInFrames object?
-   else if(!strcmp(object->name, "dot1dTpPortInFrames"))
+   else if(osStrcmp(object->name, "dot1dTpPortInFrames") == 0)
    {
       //The number of frames that have been received by this port from its
       //segment
       value->counter32 = 0;
    }
    //dot1dTpPortOutFrames object?
-   else if(!strcmp(object->name, "dot1dTpPortOutFrames"))
+   else if(osStrcmp(object->name, "dot1dTpPortOutFrames") == 0)
    {
       //The number of frames that have been transmitted by this port to its
       //segment
       value->counter32 = 0;
    }
    //dot1dTpPortInDiscards object?
-   else if(!strcmp(object->name, "dot1dTpPortInDiscards"))
+   else if(osStrcmp(object->name, "dot1dTpPortInDiscards") == 0)
    {
       //Count of received valid frames that were discarded by forwarding
       //process

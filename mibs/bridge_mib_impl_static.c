@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.4.2
+ * @version 2.4.4
  **/
 
 //Switch to the appropriate trace level
@@ -143,7 +143,7 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
    }
 
    //dot1dStaticAddress object?
-   if(!strcmp(object->name, "dot1dStaticAddress"))
+   if(osStrcmp(object->name, "dot1dStaticAddress") == 0)
    {
       //Ensure the length of the MAC address is valid
       if(valueLen != sizeof(MacAddr))
@@ -155,7 +155,7 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
          return ERROR_INCONSISTENT_VALUE;
    }
    //dot1dStaticReceivePort object?
-   else if(!strcmp(object->name, "dot1dStaticReceivePort"))
+   else if(osStrcmp(object->name, "dot1dStaticReceivePort") == 0)
    {
       //This object indicates the port number of the port from which a frame
       //must be received in order for this entry's filtering information to
@@ -165,7 +165,7 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
          return ERROR_INCONSISTENT_VALUE;
    }
    //dot1dStaticAllowedToGoTo object?
-   else if(!strcmp(object->name, "dot1dStaticAllowedToGoTo"))
+   else if(osStrcmp(object->name, "dot1dStaticAllowedToGoTo") == 0)
    {
       //Initialize the value of the dot1dStaticAllowedToGoTo object
       bridgeMibBase.dot1dStaticAllowedToGoTo = 0;
@@ -201,7 +201,7 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
       }
    }
    //dot1dStaticStatus object?
-   else if(!strcmp(object->name, "dot1dStaticStatus"))
+   else if(osStrcmp(object->name, "dot1dStaticStatus") == 0)
    {
       //This object indicates the status of this entry
       if(value->integer == BRIDGE_MIB_STATIC_STATUS_OTHER)
@@ -343,7 +343,7 @@ error_t bridgeMibGetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dStaticAddress object?
-   if(!strcmp(object->name, "dot1dStaticAddress"))
+   if(osStrcmp(object->name, "dot1dStaticAddress") == 0)
    {
       //Make sure the buffer is large enough to hold the entire object
       if(*valueLen >= sizeof(MacAddr))
@@ -362,7 +362,7 @@ error_t bridgeMibGetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
       }
    }
    //dot1dStaticReceivePort object?
-   else if(!strcmp(object->name, "dot1dStaticReceivePort"))
+   else if(osStrcmp(object->name, "dot1dStaticReceivePort") == 0)
    {
       //This object indicates the port number of the port from which a frame
       //must be received in order for this entry's filtering information to
@@ -371,7 +371,7 @@ error_t bridgeMibGetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
       value->integer = entry.srcPort;
    }
    //dot1dStaticAllowedToGoTo object?
-   else if(!strcmp(object->name, "dot1dStaticAllowedToGoTo"))
+   else if(osStrcmp(object->name, "dot1dStaticAllowedToGoTo") == 0)
    {
       uint8_t buffer[4];
 
@@ -411,7 +411,7 @@ error_t bridgeMibGetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
       }
    }
    //dot1dStaticStatus object?
-   else if(!strcmp(object->name, "dot1dStaticStatus"))
+   else if(osStrcmp(object->name, "dot1dStaticStatus") == 0)
    {
       //This object indicates the status of this entry
       value->integer = BRIDGE_MIB_STATIC_STATUS_PERMANENT;

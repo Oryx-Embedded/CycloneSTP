@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.4.2
+ * @version 2.4.4
  **/
 
 //Switch to the appropriate trace level
@@ -210,7 +210,7 @@ error_t stpSendBpdu(StpBridgePort *port, const StpBpdu *bpdu,
    if(buffer != NULL)
    {
       //Point to the LLC header
-      llcHeader = netBufferAt(buffer, offset);
+      llcHeader = netBufferAt(buffer, offset, 0);
 
       //The DSAP and SSAP fields must use the standard LLC address assigned
       //to the Bridge Spanning Tree Protocol (refer to IEEE Std 802.1D-1998,

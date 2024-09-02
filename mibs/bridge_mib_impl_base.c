@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.4.2
+ * @version 2.4.4
  **/
 
 //Switch to the appropriate trace level
@@ -227,21 +227,21 @@ error_t bridgeMibGetDot1dBasePortEntry(const MibObject *object, const uint8_t *o
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dBasePort object?
-   if(!strcmp(object->name, "dot1dBasePort"))
+   if(osStrcmp(object->name, "dot1dBasePort") == 0)
    {
       //This object specifies the port number of the port for which this entry
       //contains bridge management information
       value->integer = dot1dBasePort;
    }
    //dot1dBasePortIfIndex object?
-   else if(!strcmp(object->name, "dot1dBasePortIfIndex"))
+   else if(osStrcmp(object->name, "dot1dBasePortIfIndex") == 0)
    {
       //This object specifies the value of the instance of the ifIndex object,
       //defined in IF-MIB, for the interface corresponding to this port
       value->integer = portIndex;
    }
    //dot1dBasePortCircuit object?
-   else if(!strcmp(object->name, "dot1dBasePortCircuit"))
+   else if(osStrcmp(object->name, "dot1dBasePortCircuit") == 0)
    {
       //Make sure the buffer is large enough to hold the entire object
       if(*valueLen >= sizeof(uint8_t))
@@ -261,7 +261,7 @@ error_t bridgeMibGetDot1dBasePortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dBasePortDelayExceededDiscards object?
-   else if(!strcmp(object->name, "dot1dBasePortDelayExceededDiscards"))
+   else if(osStrcmp(object->name, "dot1dBasePortDelayExceededDiscards") == 0)
    {
       //The number of frames discarded by this port due to excessive transit
       //delay through the bridge. It is incremented by both transparent and
@@ -269,7 +269,7 @@ error_t bridgeMibGetDot1dBasePortEntry(const MibObject *object, const uint8_t *o
       value->counter32 = 0;
    }
    //dot1dBasePortMtuExceededDiscards object?
-   else if(!strcmp(object->name, "dot1dBasePortMtuExceededDiscards"))
+   else if(osStrcmp(object->name, "dot1dBasePortMtuExceededDiscards") == 0)
    {
       //The number of frames discarded by this port due to an excessive size.
       //It is incremented by both transparent and source route bridges

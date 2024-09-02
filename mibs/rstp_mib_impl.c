@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.4.2
+ * @version 2.4.4
  **/
 
 //Switch to the appropriate trace level
@@ -261,7 +261,7 @@ error_t rstpMibSetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dStpPortProtocolMigration object?
-   if(!strcmp(object->name, "dot1dStpPortProtocolMigration"))
+   if(osStrcmp(object->name, "dot1dStpPortProtocolMigration") == 0)
    {
       //This object can be be set by management to force the Port Protocol
       //Migration state machine to transmit RST BPDUs for a MigrateTime period
@@ -285,7 +285,7 @@ error_t rstpMibSetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dStpPortAdminEdgePort object?
-   else if(!strcmp(object->name, "dot1dStpPortAdminEdgePort"))
+   else if(osStrcmp(object->name, "dot1dStpPortAdminEdgePort") == 0)
    {
       //Set the administrative value of the Edge Port parameter
       if(value->integer == MIB_TRUTH_VALUE_TRUE)
@@ -309,7 +309,7 @@ error_t rstpMibSetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dStpPortAdminPointToPoint object?
-   else if(!strcmp(object->name, "dot1dStpPortAdminPointToPoint"))
+   else if(osStrcmp(object->name, "dot1dStpPortAdminPointToPoint") == 0)
    {
       //Set the administrative point-to-point status of the LAN segment
       //attached to this port
@@ -343,7 +343,7 @@ error_t rstpMibSetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dStpPortAdminPathCost object?
-   else if(!strcmp(object->name, "dot1dStpPortAdminPathCost"))
+   else if(osStrcmp(object->name, "dot1dStpPortAdminPathCost") == 0)
    {
       //Ensure that the supplied value is valid
       if(value->integer >= 0)
@@ -407,13 +407,13 @@ error_t rstpMibGetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dStpPortProtocolMigration object?
-   if(!strcmp(object->name, "dot1dStpPortProtocolMigration"))
+   if(osStrcmp(object->name, "dot1dStpPortProtocolMigration") == 0)
    {
       //This object always returns false when read
       value->integer = MIB_TRUTH_VALUE_FALSE;
    }
    //dot1dStpPortAdminEdgePort object?
-   else if(!strcmp(object->name, "dot1dStpPortAdminEdgePort"))
+   else if(osStrcmp(object->name, "dot1dStpPortAdminEdgePort") == 0)
    {
       bool_t adminEdgePort;
 
@@ -437,7 +437,7 @@ error_t rstpMibGetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dStpPortOperEdgePort object?
-   else if(!strcmp(object->name, "dot1dStpPortOperEdgePort"))
+   else if(osStrcmp(object->name, "dot1dStpPortOperEdgePort") == 0)
    {
       bool_t operEdgePort;
 
@@ -460,7 +460,7 @@ error_t rstpMibGetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dStpPortAdminPointToPoint object?
-   else if(!strcmp(object->name, "dot1dStpPortAdminPointToPoint"))
+   else if(osStrcmp(object->name, "dot1dStpPortAdminPointToPoint") == 0)
    {
       RstpAdminPointToPointMac adminPointToPointMac;
 
@@ -496,7 +496,7 @@ error_t rstpMibGetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dStpPortOperPointToPoint object?
-   else if(!strcmp(object->name, "dot1dStpPortOperPointToPoint"))
+   else if(osStrcmp(object->name, "dot1dStpPortOperPointToPoint") == 0)
    {
       bool_t operPointToPointMac;
 
@@ -520,7 +520,7 @@ error_t rstpMibGetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
       }
    }
    //dot1dStpPortAdminPathCost object?
-   else if(!strcmp(object->name, "dot1dStpPortAdminPathCost"))
+   else if(osStrcmp(object->name, "dot1dStpPortAdminPathCost") == 0)
    {
       uint32_t adminPathCost;
 

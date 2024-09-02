@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.4.2
+ * @version 2.4.4
  **/
 
 //Switch to the appropriate trace level
@@ -1163,7 +1163,7 @@ error_t bridgeMibSetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dStpPortPriority object?
-   if(!strcmp(object->name, "dot1dStpPortPriority"))
+   if(osStrcmp(object->name, "dot1dStpPortPriority") == 0)
    {
       //This object specifies the value of the priority field that is
       //contained in the first octet of the Port Identifier
@@ -1171,14 +1171,14 @@ error_t bridgeMibSetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
          commit);
    }
    //dot1dStpPortEnable object?
-   else if(!strcmp(object->name, "dot1dStpPortEnable"))
+   else if(osStrcmp(object->name, "dot1dStpPortEnable") == 0)
    {
       //This object specifies the enabled/disabled status of the port
       error = bridgeMibSetDot1dStpPortEnable(portIndex, value, valueLen,
          commit);
    }
    //dot1dStpPortPathCost object?
-   else if(!strcmp(object->name, "dot1dStpPortPathCost"))
+   else if(osStrcmp(object->name, "dot1dStpPortPathCost") == 0)
    {
       //This object specifies the contribution of this port to the path
       //cost of paths towards the spanning tree root which include this
@@ -1187,7 +1187,7 @@ error_t bridgeMibSetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
          commit);
    }
    //dot1dStpPortPathCost32 object?
-   else if(!strcmp(object->name, "dot1dStpPortPathCost32"))
+   else if(osStrcmp(object->name, "dot1dStpPortPathCost32") == 0)
    {
       //This object specifies the contribution of this port to the path
       //cost of paths towards the spanning tree root which include this
@@ -1249,41 +1249,41 @@ error_t bridgeMibGetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
       return ERROR_INSTANCE_NOT_FOUND;
 
    //dot1dStpPort object?
-   if(!strcmp(object->name, "dot1dStpPort"))
+   if(osStrcmp(object->name, "dot1dStpPort") == 0)
    {
       //This object specifies the port number of the port for which this
       //entry contains Spanning Tree Protocol management information
       value->integer = dot1dStpPort;
    }
    //dot1dStpPortPriority object?
-   else if(!strcmp(object->name, "dot1dStpPortPriority"))
+   else if(osStrcmp(object->name, "dot1dStpPortPriority") == 0)
    {
       //This object specifies the value of the priority field that is contained
       //in the first octet of the Port Identifier
       error = bridgeMibGetDot1dStpPortPriority(portIndex, value, valueLen);
    }
    //dot1dStpPortState object?
-   else if(!strcmp(object->name, "dot1dStpPortState"))
+   else if(osStrcmp(object->name, "dot1dStpPortState") == 0)
    {
       //This object specifies the port's current state, as defined by
       //application of the Spanning Tree Protocol
       error = bridgeMibGetDot1dStpPortState(portIndex, value, valueLen);
    }
    //dot1dStpPortEnable object?
-   else if(!strcmp(object->name, "dot1dStpPortEnable"))
+   else if(osStrcmp(object->name, "dot1dStpPortEnable") == 0)
    {
       //This object specifies the enabled/disabled status of the port
       error = bridgeMibGetDot1dStpPortEnable(portIndex, value, valueLen);
    }
    //dot1dStpPortPathCost object?
-   else if(!strcmp(object->name, "dot1dStpPortPathCost"))
+   else if(osStrcmp(object->name, "dot1dStpPortPathCost") == 0)
    {
       //This object specifies the contribution of this port to the path cost
       //of paths towards the spanning tree root which include this port
       error = bridgeMibGetDot1dStpPortPathCost(portIndex, value, valueLen);
    }
    //dot1dStpPortDesignatedRoot object?
-   else if(!strcmp(object->name, "dot1dStpPortDesignatedRoot"))
+   else if(osStrcmp(object->name, "dot1dStpPortDesignatedRoot") == 0)
    {
       //This object specifies the unique Bridge Identifier of the bridge
       //recorded as the Root in the Configuration BPDUs transmitted by the
@@ -1292,7 +1292,7 @@ error_t bridgeMibGetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
          valueLen);
    }
    //dot1dStpPortDesignatedCost object?
-   else if(!strcmp(object->name, "dot1dStpPortDesignatedCost"))
+   else if(osStrcmp(object->name, "dot1dStpPortDesignatedCost") == 0)
    {
       //This object specifies the path cost of the Designated Port of the
       //segment connected to this port
@@ -1300,7 +1300,7 @@ error_t bridgeMibGetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
          valueLen);
    }
    //dot1dStpPortDesignatedBridge object?
-   else if(!strcmp(object->name, "dot1dStpPortDesignatedBridge"))
+   else if(osStrcmp(object->name, "dot1dStpPortDesignatedBridge") == 0)
    {
       //This object specifies the Bridge Identifier of the bridge that this
       //port considers to be the Designated Bridge for this port's segment
@@ -1308,7 +1308,7 @@ error_t bridgeMibGetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
          valueLen);
    }
    //dot1dStpPortDesignatedPort object?
-   else if(!strcmp(object->name, "dot1dStpPortDesignatedPort"))
+   else if(osStrcmp(object->name, "dot1dStpPortDesignatedPort") == 0)
    {
       //This object specifies the Port Identifier of the port on the
       //Designated Bridge for this port's segment
@@ -1316,7 +1316,7 @@ error_t bridgeMibGetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
          valueLen);
    }
    //dot1dStpPortForwardTransitions object?
-   else if(!strcmp(object->name, "dot1dStpPortForwardTransitions"))
+   else if(osStrcmp(object->name, "dot1dStpPortForwardTransitions") == 0)
    {
       //The number of times this port has transitioned from the Learning state
       //to the Forwarding state
@@ -1324,7 +1324,7 @@ error_t bridgeMibGetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
          valueLen);
    }
    //dot1dStpPortPathCost32 object?
-   else if(!strcmp(object->name, "dot1dStpPortPathCost32"))
+   else if(osStrcmp(object->name, "dot1dStpPortPathCost32") == 0)
    {
       //This object specifies the contribution of this port to the path cost
       //of paths towards the spanning tree root which include this port
