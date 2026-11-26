@@ -1,5 +1,5 @@
 /**
- * @file bridge_mib_impl.h
+ * @file bridge_mib_impl_tp.h
  * @brief Bridge MIB module implementation (dot1dTp subtree)
  *
  * @section License
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 #ifndef _BRIDGE_MIB_IMPL_TP_H

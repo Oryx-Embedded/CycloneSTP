@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -61,7 +61,9 @@ error_t stpMgmtSetBridgePriority(StpBridgeContext *context, uint16_t value,
 
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Commit phase?
    if(commit)
@@ -139,12 +141,16 @@ error_t stpMgmtSetBridgeMaxAge(StpBridgeContext *context, uint_t value,
 {
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Bridge Max Age is outside the specified range, then
    //no action shall be taken
    if(value < STP_MIN_BRIDGE_MAX_AGE || value > STP_MAX_BRIDGE_MAX_AGE)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //A bridge shall enforce the following relationships (refer to IEEE Std
    //802.1D-1998, section 8.10.2)
@@ -200,12 +206,16 @@ error_t stpMgmtSetBridgeHelloTime(StpBridgeContext *context, uint_t value,
 {
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Bridge Hello Time is outside the specified range, then
    //no action shall be taken
    if(value < STP_MIN_BRIDGE_HELLO_TIME || value > STP_MAX_BRIDGE_HELLO_TIME)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //A bridge shall enforce the following relationships (refer to IEEE Std
    //802.1D-1998, section 8.10.2)
@@ -255,12 +265,16 @@ error_t stpMgmtSetBridgeForwardDelay(StpBridgeContext *context, uint_t value,
 {
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Bridge Forward Delay is outside the specified range,
    //then no action shall be taken
    if(value < STP_MIN_BRIDGE_FORWARD_DELAY || value > STP_MAX_BRIDGE_FORWARD_DELAY)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //A bridge shall enforce the following relationships (refer to IEEE Std
    //802.1D-1998, section 8.10.2)
@@ -316,12 +330,16 @@ error_t stpMgmtSetAgeingTime(StpBridgeContext *context, uint_t value,
 {
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Ageing Time is outside the specified range, then no
    //action shall be taken
    if(value < STP_MIN_AGEING_TIME || value > STP_MAX_AGEING_TIME)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //Commit phase?
    if(commit)
@@ -357,7 +375,9 @@ error_t stpMgmtGetNumPorts(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the number of ports
    *value = context->numPorts;
@@ -377,7 +397,9 @@ error_t stpMgmtGetBridgeAddr(StpBridgeContext *context, MacAddr *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the bridge identifier
    *value = context->bridgeId.addr;
@@ -398,7 +420,9 @@ error_t stpMgmtGetBridgePriority(StpBridgeContext *context, uint16_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the bridge priority
    *value = context->bridgeId.priority;
@@ -419,7 +443,9 @@ error_t stpMgmtGetBridgeMaxAge(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Bridge Max Age parameter
    *value = context->bridgeMaxAge;
@@ -440,7 +466,9 @@ error_t stpMgmtGetBridgeHelloTime(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Bridge Hello Time parameter
    *value = context->bridgeHelloTime;
@@ -461,7 +489,9 @@ error_t stpMgmtGetBridgeForwardDelay(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Bridge Forward Delay parameter
    *value = context->bridgeForwardDelay;
@@ -482,7 +512,9 @@ error_t stpMgmtGetHoldTime(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Hold Time parameter
    *value = context->holdTime;
@@ -503,7 +535,9 @@ error_t stpMgmtGetAgeingTime(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Ageing Time parameter
    *value = context->ageingTime;
@@ -524,7 +558,9 @@ error_t stpMgmtGetDesignatedRoot(StpBridgeContext *context, StpBridgeId *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the bridge identifier of the root of the spanning tree, as
    //determined by the Spanning Tree Protocol
@@ -546,7 +582,9 @@ error_t stpMgmtGetRootPathCost(StpBridgeContext *context, uint32_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the cost of the path to the root as seen from this bridge
    *value = context->rootPathCost;
@@ -567,7 +605,9 @@ error_t stpMgmtGetRootPort(StpBridgeContext *context, uint16_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the port through which the path to the Root is established. This
    //value not significant when the bridge is the Root, and is set to zero
@@ -589,7 +629,9 @@ error_t stpMgmtGetMaxAge(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the maximum age of Spanning Tree Protocol information learned
    //from the network on any port before it is discarded
@@ -611,7 +653,9 @@ error_t stpMgmtGetHelloTime(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the amount of time between the transmission of Configuration
    //bridge PDUs by this node on any port when it is the root of the spanning
@@ -634,7 +678,9 @@ error_t stpMgmtGetForwardDelay(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //The Forward Delay value determines how long the port stays in each of the
    //Listening and Learning states, which precede the Forwarding state
@@ -656,7 +702,9 @@ error_t stpMgmtGetTopologyChanges(StpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the number of topology changes
    *value = context->topologyChangeCount;
@@ -678,7 +726,9 @@ error_t stpMgmtGetTimeSinceTopologyChange(StpBridgeContext *context,
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the time since a topology change was last detected by the bridge
    *value = context->timeSinceTopologyChange;
@@ -707,11 +757,15 @@ error_t stpMgmtSetPortPriority(StpBridgeContext *context, uint_t portIndex,
 
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -779,11 +833,15 @@ error_t stpMgmtSetAdminPortState(StpBridgeContext *context, uint_t portIndex,
 
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -890,15 +948,21 @@ error_t stpMgmtSetPortPathCost(StpBridgeContext *context, uint_t portIndex,
 
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Check the value of the parameter
-   if(value > STP_MAX_PORT_PATH_COST)
+   if(value < STP_MIN_PORT_PATH_COST || value > STP_MAX_PORT_PATH_COST)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -939,11 +1003,15 @@ error_t stpMgmtGetPortAddr(StpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -971,11 +1039,15 @@ error_t stpMgmtGetPortPriority(StpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1003,11 +1075,15 @@ error_t stpMgmtGetAdminPortState(StpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1035,11 +1111,15 @@ error_t stpMgmtGetMacOperState(StpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1067,11 +1147,15 @@ error_t stpMgmtGetPortPathCost(StpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1100,11 +1184,15 @@ error_t stpMgmtGetPortState(StpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1175,11 +1263,15 @@ error_t stpMgmtGetPortRole(StpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1227,11 +1319,15 @@ error_t stpMgmtGetPortDesignatedRoot(StpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1261,11 +1357,15 @@ error_t stpMgmtGetPortDesignatedCost(StpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1294,11 +1394,15 @@ error_t stpMgmtGetPortDesignatedBridge(StpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1327,11 +1431,15 @@ error_t stpMgmtGetPortDesignatedPort(StpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1360,11 +1468,15 @@ error_t stpMgmtGetForwardTransitions(StpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];

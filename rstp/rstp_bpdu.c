@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -87,11 +87,15 @@ void rstpProcessLlcFrame(NetInterface *interface, EthHeader *ethHeader,
    //of all MAC frames conveying BPDUs (refer to IEEE Std 802.1D-2004, section
    //7.12.3)
    if(!macCompAddr(&ethHeader->destAddr, &RSTP_BRIDGE_GROUP_ADDR))
+   {
       return;
+   }
 
    //Check the length of the LLC frame
    if(length < sizeof(LlcHeader))
+   {
       return;
+   }
 
    //Point to the LLC header
    llcHeader = (LlcHeader *) data;
@@ -107,7 +111,9 @@ void rstpProcessLlcFrame(NetInterface *interface, EthHeader *ethHeader,
 
    //Invalid port number?
    if(ancillary->port < 1 || ancillary->port > context->numPorts)
+   {
       return;
+   }
 
    //Retrieve the port that matches the specified port number
    port = &context->ports[ancillary->port - 1];
@@ -150,11 +156,15 @@ error_t rstpProcessBpdu(RstpBridgePort *port, const RstpBpdu *bpdu,
 
    //The BPDU must contain at least four octets
    if(length < STP_MIN_BPDU_SIZE)
+   {
       return ERROR_INVALID_LENGTH;
+   }
 
    //The Protocol Identifier must have the value specified for BPDUs
    if(ntohs(bpdu->protocolId) != STP_PROTOCOL_ID)
+   {
       return ERROR_INVALID_LENGTH;
+   }
 
    //The type of the BPDU is encoded as a single octet
    bpduType = bpdu->bpduType;
@@ -166,7 +176,9 @@ error_t rstpProcessBpdu(RstpBridgePort *port, const RstpBpdu *bpdu,
       error = rstpValidateConfigBpdu(port, bpdu, length);
       //Invalid Configuration BPDU?
       if(error)
+      {
          return error;
+      }
 
       //All octets that appear in the BPDU beyond the largest numbered octet
       //defined for a given BPDU type shall be ignored
@@ -183,11 +195,21 @@ error_t rstpProcessBpdu(RstpBridgePort *port, const RstpBpdu *bpdu,
       //RST BPDUs are not recognized by STP bridges (refer IEEE Std 802.1D-2004,
       //section 17.4)
       if(stpVersion(context))
+      {
          return ERROR_INVALID_VERSION;
+      }
+
+      //The Protocol Version Identifier of an RST BPDU must be 2 or greater
+      if(bpdu->protocolVersionId < RSTP_PROTOCOL_VERSION)
+      {
+         return ERROR_INVALID_VERSION;
+      }
 
       //A Rapid Spanning Tree BPDU must contain at least 36 octets
       if(length < RSTP_RST_BPDU_SIZE)
+      {
          return ERROR_INVALID_LENGTH;
+      }
 
       //All octets that appear in the BPDU beyond the largest numbered octet
       //defined for a given BPDU type shall be ignored
@@ -206,7 +228,9 @@ error_t rstpProcessBpdu(RstpBridgePort *port, const RstpBpdu *bpdu,
          error = rstpValidateConfigBpdu(port, bpdu, length);
          //Invalid Configuration BPDU?
          if(error)
+         {
             return error;
+         }
 
          //All octets that appear in the BPDU beyond the largest numbered octet
          //defined for a given BPDU type shall be ignored
@@ -278,11 +302,15 @@ error_t rstpValidateConfigBpdu(RstpBridgePort *port, const RstpBpdu *bpdu,
 
    //A Configuration BPDU must contain at least 35 octets
    if(length < RSTP_CONFIG_BPDU_SIZE)
+   {
       return ERROR_INVALID_LENGTH;
+   }
 
    //The BPDU's Message Age must be less than its Max Age parameter
    if(ntohs(bpdu->messageAge) >= ntohs(bpdu->maxAge))
+   {
       return ERROR_INVALID_PACKET;
+   }
 
    //The Bridge Identifier and Port Identifier parameters from the received BPDU
    //must not match the values that would be transmitted in a BPDU from this port
@@ -393,7 +421,9 @@ error_t rstpDumpBpdu(const RstpBpdu *bpdu, size_t length)
 
    //The BPDU must contain at least four octets
    if(length < STP_MIN_BPDU_SIZE)
+   {
       return ERROR_INVALID_LENGTH;
+   }
 
    //Dump Protocol Identifier
    TRACE_DEBUG("  Protocol Identifier = %" PRIu16 "\r\n",

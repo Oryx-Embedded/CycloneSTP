@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 #ifndef _RSTP_MISC_H
@@ -63,6 +63,8 @@ int_t rstpCompareBridgeAddr(const MacAddr *addr1, const MacAddr *addr2);
 int_t rstpCompareBridgeId(const StpBridgeId *id1, const StpBridgeId *id2);
 int_t rstpComparePriority(const RstpPriority *p1, const RstpPriority *p2);
 int_t rstpCompareTimes(const RstpTimes *t1, const RstpTimes *t2);
+
+uint32_t rstpAddPathCost(uint32_t cost1, uint32_t cost2);
 
 void rstpUpdateTopologyChangeCount(RstpBridgeContext *context);
 void rstpUpdatePortPathCost(RstpBridgePort *port);

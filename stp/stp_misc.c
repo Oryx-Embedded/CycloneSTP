@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -313,6 +313,35 @@ int_t stpCompareBridgeId(const StpBridgeId *id1, const StpBridgeId *id2)
 
    //Return comparison result
    return res;
+}
+
+
+/**
+ * @brief Add two path cost values without wrapping around
+ * @param[in] cost1 First path cost
+ * @param[in] cost2 Second path cost
+ * @return Sum of the two path costs, saturated to the largest value that
+ *   can be represented in the 32-bit Root Path Cost field
+ **/
+
+uint32_t stpAddPathCost(uint32_t cost1, uint32_t cost2)
+{
+   uint32_t cost;
+
+   //Check whether the sum exceeds the maximum value
+   if(cost1 > (UINT32_MAX - cost2))
+   {
+      //Saturate the result
+      cost = UINT32_MAX;
+   }
+   else
+   {
+      //Add path costs
+      cost = cost1 + cost2;
+   }
+
+   //Return the resulting path cost
+   return cost;
 }
 
 

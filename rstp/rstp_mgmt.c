@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -57,11 +57,15 @@ error_t rstpMgmtSetVersion(RstpBridgeContext *context, uint_t value,
 {
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Check parameter
    if(value != STP_PROTOCOL_VERSION && value != RSTP_PROTOCOL_VERSION)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //Commit phase?
    if(commit)
@@ -100,11 +104,15 @@ error_t rstpMgmtSetBridgePriority(RstpBridgeContext *context, uint16_t value,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Permissible values are 0-61440, in steps of 4096
    if(value > 61440 || (value % 4096) != 0)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //Commit phase?
    if(commit)
@@ -160,12 +168,16 @@ error_t rstpMgmtSetBridgeMaxAge(RstpBridgeContext *context, uint_t value,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Bridge Max Age is outside the specified range, then
    //no action shall be taken
    if(value < RSTP_MIN_BRIDGE_MAX_AGE || value > RSTP_MAX_BRIDGE_MAX_AGE)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //To support interoperability with legacy bridges, a bridge shall enforce
    //the following relationships (refer to IEEE Std 802.1D-2004, section 17.14)
@@ -220,12 +232,16 @@ error_t rstpMgmtSetBridgeHelloTime(RstpBridgeContext *context, uint_t value,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Bridge Hello Time is outside the specified range, then
    //no action shall be taken
    if(value < RSTP_MIN_BRIDGE_HELLO_TIME || value > RSTP_MAX_BRIDGE_HELLO_TIME)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //To support interoperability with legacy bridges, a bridge shall enforce
    //the following relationship (refer to IEEE Std 802.1D-2004, section 17.14)
@@ -280,7 +296,9 @@ error_t rstpMgmtSetBridgeForwardDelay(RstpBridgeContext *context, uint_t value,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Bridge Forward Delay is outside the specified range,
    //then no action shall be taken
@@ -343,7 +361,9 @@ error_t rstpMgmtSetTxHoldCount(RstpBridgeContext *context, uint_t value,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Transmit Hold Count is outside the specified range,
    //then no action shall be taken
@@ -393,12 +413,16 @@ error_t rstpMgmtSetAgeingTime(RstpBridgeContext *context, uint_t value,
 {
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //If the value of the Ageing Time is outside the specified range, then no
    //action shall be taken
    if(value < RSTP_MIN_AGEING_TIME || value > RSTP_MAX_AGEING_TIME)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //Commit phase?
    if(commit)
@@ -436,7 +460,9 @@ error_t rstpMgmtGetNumPorts(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the number of ports
    *value = context->numPorts;
@@ -457,7 +483,9 @@ error_t rstpMgmtGetVersion(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the version of Spanning Tree Protocol the bridge is currently
    //running
@@ -479,7 +507,9 @@ error_t rstpMgmtGetBridgeAddr(RstpBridgeContext *context, MacAddr *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the bridge identifier
    *value = context->bridgeId.addr;
@@ -500,7 +530,9 @@ error_t rstpMgmtGetBridgePriority(RstpBridgeContext *context, uint16_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the bridge priority
    *value = context->bridgeId.priority;
@@ -521,7 +553,9 @@ error_t rstpMgmtGetBridgeMaxAge(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Bridge Max Age parameter
    *value = context->params.bridgeMaxAge;
@@ -542,7 +576,9 @@ error_t rstpMgmtGetBridgeHelloTime(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Bridge Hello Time parameter
    *value = context->params.bridgeHelloTime;
@@ -563,7 +599,9 @@ error_t rstpMgmtGetBridgeForwardDelay(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Bridge Forward Delay parameter
    *value = context->params.bridgeForwardDelay;
@@ -584,7 +622,9 @@ error_t rstpMgmtGetTxHoldCount(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Transmit Hold Count parameter
    *value = context->params.transmitHoldCount;
@@ -605,7 +645,9 @@ error_t rstpMgmtGetAgeingTime(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the value of the Ageing Time parameter
    *value = context->params.ageingTime;
@@ -626,7 +668,9 @@ error_t rstpMgmtGetDesignatedRoot(RstpBridgeContext *context, StpBridgeId *value
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the bridge identifier of the root of the spanning tree, as
    //determined by the Spanning Tree Protocol
@@ -648,7 +692,9 @@ error_t rstpMgmtGetRootPathCost(RstpBridgeContext *context, uint32_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the cost of the path to the root as seen from this bridge
    *value = context->rootPriority.rootPathCost;
@@ -669,7 +715,9 @@ error_t rstpMgmtGetRootPort(RstpBridgeContext *context, uint16_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the port through which the path to the Root is established. This
    //value not significant when the bridge is the Root, and is set to zero
@@ -691,7 +739,9 @@ error_t rstpMgmtGetMaxAge(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the maximum age of Spanning Tree Protocol information learned
    //from the network on any port before it is discarded
@@ -713,7 +763,9 @@ error_t rstpMgmtGetHelloTime(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the amount of time between the transmission of Configuration
    //bridge PDUs by this node on any port when it is the root of the spanning
@@ -736,7 +788,9 @@ error_t rstpMgmtGetForwardDelay(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //The Forward Delay value determines how long the port stays in each of the
    //Listening and Learning states, which precede the Forwarding state
@@ -758,7 +812,9 @@ error_t rstpMgmtGetTopologyChanges(RstpBridgeContext *context, uint_t *value)
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the number of topology changes
    *value = context->topologyChangeCount;
@@ -780,7 +836,9 @@ error_t rstpMgmtGetTimeSinceTopologyChange(RstpBridgeContext *context,
 {
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Retrieve the time since a topology change was last detected by the bridge
    *value = context->timeSinceTopologyChange;
@@ -808,15 +866,21 @@ error_t rstpMgmtSetPortPriority(RstpBridgeContext *context, uint_t portIndex,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Valid port priorities are in the range 0 through 240, in steps of 16
    if(value > 240 || (value % 16) != 0)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -864,11 +928,15 @@ error_t rstpMgmtSetAdminPortState(RstpBridgeContext *context, uint_t portIndex,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -914,15 +982,21 @@ error_t rstpMgmtSetAdminPortPathCost(RstpBridgeContext *context, uint_t portInde
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Check the value of the parameter
    if(value > RSTP_MAX_PORT_PATH_COST)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -975,11 +1049,15 @@ error_t rstpMgmtSetAdminPointToPointMac(RstpBridgeContext *context,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Check the value of the parameter
    if(value != RSTP_ADMIN_P2P_MAC_FORCE_TRUE &&
@@ -1033,11 +1111,15 @@ error_t rstpMgmtSetAdminEdgePort(RstpBridgeContext *context, uint_t portIndex,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1083,11 +1165,15 @@ error_t rstpMgmtSetAutoEdgePort(RstpBridgeContext *context, uint_t portIndex,
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1131,11 +1217,15 @@ error_t rstpMgmtSetProtocolMigration(RstpBridgeContext *context, uint_t portInde
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1184,11 +1274,15 @@ error_t rstpMgmtGetPortAddr(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1216,11 +1310,15 @@ error_t rstpMgmtGetPortPriority(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1248,11 +1346,15 @@ error_t rstpMgmtGetAdminPortState(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1280,11 +1382,15 @@ error_t rstpMgmtGetMacOperState(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1312,11 +1418,15 @@ error_t rstpMgmtGetAdminPortPathCost(RstpBridgeContext *context, uint_t portInde
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1344,11 +1454,15 @@ error_t rstpMgmtGetPortPathCost(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1378,11 +1492,15 @@ error_t rstpMgmtGetAdminPointToPointMac(RstpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1412,11 +1530,15 @@ error_t rstpMgmtGetOperPointToPointMac(RstpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1444,11 +1566,15 @@ error_t rstpMgmtGetAdminEdgePort(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1476,11 +1602,15 @@ error_t rstpMgmtGetAutoEdgePort(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1508,11 +1638,15 @@ error_t rstpMgmtGetOperEdgePort(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1540,11 +1674,15 @@ error_t rstpMgmtGetPortState(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1628,11 +1766,15 @@ error_t rstpMgmtGetPortRole(RstpBridgeContext *context, uint_t portIndex,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1660,11 +1802,15 @@ error_t rstpMgmtGetPortDesignatedRoot(RstpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1694,11 +1840,15 @@ error_t rstpMgmtGetPortDesignatedCost(RstpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1727,11 +1877,15 @@ error_t rstpMgmtGetPortDesignatedBridge(RstpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1760,11 +1914,15 @@ error_t rstpMgmtGetPortDesignatedPort(RstpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];
@@ -1793,11 +1951,15 @@ error_t rstpMgmtGetForwardTransitions(RstpBridgeContext *context,
 
    //Check parameters
    if(context == NULL || value == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Invalid port index?
    if(portIndex < 1 || portIndex > context->numPorts)
+   {
       return ERROR_INVALID_PORT;
+   }
 
    //Point to the port that matches the specified port index
    port = &context->ports[portIndex - 1];

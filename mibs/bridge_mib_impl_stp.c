@@ -1,5 +1,5 @@
 /**
- * @file bridge_mib_impl.c
+ * @file bridge_mib_impl_stp.c
  * @brief Bridge MIB module implementation (dot1dStp subtree)
  *
  * @section License
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -331,7 +331,9 @@ error_t bridgeMibGetDot1dStpDesignatedRoot(const MibObject *object, const uint8_
 
    //Make sure the buffer is large enough to hold the entire object
    if(*valueLen < sizeof(StpBridgeId))
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Initialize object value
    designatedRoot.priority = 0;
@@ -773,7 +775,9 @@ error_t bridgeMibSetDot1dStpBridgeMaxAge(const MibObject *object, const uint8_t 
    //An agent may return a badValue error if a set is attempted to a value that
    //is not a whole number of seconds
    if((value->integer % 100) != 0)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //The value is expressed in hundredths of a second
    bridgeMaxAge = value->integer / 100;
@@ -897,7 +901,9 @@ error_t bridgeMibSetDot1dStpBridgeHelloTime(const MibObject *object, const uint8
    //An agent may return a badValue error if a set is attempted to a value that
    //is not a whole number of seconds
    if((value->integer % 100) != 0)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //The value is expressed in hundredths of a second
    bridgeHelloTime = value->integer / 100;
@@ -1021,7 +1027,9 @@ error_t bridgeMibSetDot1dStpBridgeForwardDelay(const MibObject *object, const ui
    //An agent may return a badValue error if a set is attempted to a value that
    //is not a whole number of seconds
    if((value->integer % 100) != 0)
+   {
       return ERROR_WRONG_VALUE;
+   }
 
    //The value is expressed in hundredths of a second
    bridgeForwardDelay = value->integer / 100;
@@ -1150,17 +1158,23 @@ error_t bridgeMibSetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
    error = mibDecodePort(oid, oidLen, &n, &dot1dStpPort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //Retrieve the port that matches the specified port number
    portIndex = bridgeMibGetPortIndex(dot1dStpPort);
    //Invalid port number?
    if(portIndex == 0)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //dot1dStpPortPriority object?
    if(osStrcmp(object->name, "dot1dStpPortPriority") == 0)
@@ -1236,17 +1250,23 @@ error_t bridgeMibGetDot1dStpPortEntry(const MibObject *object, const uint8_t *oi
    error = mibDecodePort(oid, oidLen, &n, &dot1dStpPort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //Retrieve the port that matches the specified port number
    portIndex = bridgeMibGetPortIndex(dot1dStpPort);
    //Invalid port number?
    if(portIndex == 0)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //dot1dStpPort object?
    if(osStrcmp(object->name, "dot1dStpPort") == 0)
@@ -1368,7 +1388,9 @@ error_t bridgeMibGetNextDot1dStpPortEntry(const MibObject *object, const uint8_t
 
    //Make sure the buffer is large enough to hold the OID prefix
    if(*nextOidLen < object->oidLen)
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Copy OID prefix
    osMemcpy(nextOid, object->oid, object->oidLen);
@@ -1389,7 +1411,9 @@ error_t bridgeMibGetNextDot1dStpPortEntry(const MibObject *object, const uint8_t
       error = mibEncodeIndex(nextOid, *nextOidLen, &n, curPortNum);
       //Any error to report?
       if(error)
+      {
          return error;
+      }
 
       //Check whether the resulting object identifier lexicographically
       //follows the specified OID
@@ -1407,7 +1431,9 @@ error_t bridgeMibGetNextDot1dStpPortEntry(const MibObject *object, const uint8_t
    //The specified OID does not lexicographically precede the name
    //of some object?
    if(portNum == 0)
+   {
       return ERROR_OBJECT_NOT_FOUND;
+   }
 
    //Append the instance identifier to the OID prefix
    n = object->oidLen;
@@ -1416,7 +1442,9 @@ error_t bridgeMibGetNextDot1dStpPortEntry(const MibObject *object, const uint8_t
    error = mibEncodeIndex(nextOid, *nextOidLen, &n, portNum);
    //Any error to report?
    if(error)
+   {
       return error;
+   }
 
    //Save the length of the resulting object identifier
    *nextOidLen = n;
@@ -1888,7 +1916,9 @@ error_t bridgeMibGetDot1dStpPortDesignatedRoot(uint16_t portNum,
 
    //Make sure the buffer is large enough to hold the entire object
    if(*valueLen < sizeof(StpBridgeId))
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Initialize object value
    designatedRoot.priority = 0;
@@ -2013,7 +2043,9 @@ error_t bridgeMibGetDot1dStpPortDesignatedBridge(uint16_t portNum,
 
    //Make sure the buffer is large enough to hold the entire object
    if(*valueLen < sizeof(StpBridgeId))
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Initialize object value
    designatedBridge.priority = 0;
@@ -2079,7 +2111,9 @@ error_t bridgeMibGetDot1dStpPortDesignatedPort(uint16_t portNum,
 
    //Make sure the buffer is large enough to hold the entire object
    if(*valueLen < sizeof(uint16_t))
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Initialize object value
    designatedPort = 0;

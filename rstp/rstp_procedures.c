@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -253,6 +253,25 @@ RstpRcvdInfo rstpRcvInfo(RstpBridgePort *port)
    port->msgTimes.maxAge = ntohs(bpdu->maxAge) / 256;
    port->msgTimes.forwardDelay = ntohs(bpdu->forwardDelay) / 256;
    port->msgTimes.helloTime = ntohs(bpdu->helloTime) / 256;
+
+   //Clamp the received timer values to their permitted ranges
+   port->msgTimes.maxAge = MAX(port->msgTimes.maxAge,
+      RSTP_MIN_BRIDGE_MAX_AGE);
+
+   port->msgTimes.maxAge = MIN(port->msgTimes.maxAge,
+      RSTP_MAX_BRIDGE_MAX_AGE);
+
+   port->msgTimes.helloTime = MAX(port->msgTimes.helloTime,
+      RSTP_MIN_BRIDGE_HELLO_TIME);
+
+   port->msgTimes.helloTime = MIN(port->msgTimes.helloTime,
+      RSTP_MAX_BRIDGE_HELLO_TIME);
+
+   port->msgTimes.forwardDelay = MAX(port->msgTimes.forwardDelay,
+      RSTP_MIN_BRIDGE_FORWARD_DELAY);
+
+   port->msgTimes.forwardDelay = MIN(port->msgTimes.forwardDelay,
+      RSTP_MAX_BRIDGE_FORWARD_DELAY);
 
    //Check BPDU type
    if(bpdu->bpduType == RSTP_BPDU_TYPE_RST)
@@ -885,7 +904,9 @@ void rstpUpdtRolesTree(RstpBridgeContext *context)
          //priority vector, by adding the receiving port's path cost to the
          //Root Path Cost component
          rootPathPriority = port->portPriority;
-         rootPathPriority.rootPathCost += port->portPathCost;
+
+         rootPathPriority.rootPathCost = rstpAddPathCost(
+            rootPathPriority.rootPathCost, port->portPathCost);
 
          //The bridge's root priority vector (rootPriority plus rootPortId) is
          //chosen as the best of the set of priority vectors comprising the

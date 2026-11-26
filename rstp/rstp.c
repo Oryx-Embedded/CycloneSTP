@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -77,15 +77,21 @@ error_t rstpInit(RstpBridgeContext *context, RstpBridgeSettings *settings)
 
    //Ensure the parameters are valid
    if(context == NULL || settings == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //The bridge must be bound to a valid interface
    if(settings->interface == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //Sanity check
    if(settings->numPorts < 1 || settings->ports == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //Clear RSTP bridge context
    osMemset(context, 0, sizeof(RstpBridgeContext));
@@ -175,7 +181,9 @@ error_t rstpStart(RstpBridgeContext *context)
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //Debug message
    TRACE_INFO("Starting RSTP bridge...\r\n");
@@ -197,27 +205,35 @@ error_t rstpStart(RstpBridgeContext *context)
          error = ethAcceptMacAddr(interface, &RSTP_BRIDGE_GROUP_ADDR);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //Configure the permanent database
          error = rstpConfigurePermanentDatabase(context);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //Register a callback to process incoming LLC frames
          error = ethAttachLlcRxCallback(interface, rstpProcessLlcFrame,
             context);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //Register timer callback
          error = netAttachTimerCallback(context->netContext, RSTP_TICK_INTERVAL,
             (NetTimerCallback) rstpTick, context);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //The RSTP bridge is now running
          context->running = TRUE;
@@ -269,7 +285,9 @@ error_t rstpStop(RstpBridgeContext *context)
 
    //Make sure the RSTP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //Debug message
    TRACE_INFO("Stopping RSTP bridge...\r\n");

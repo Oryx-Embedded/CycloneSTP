@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -91,7 +91,7 @@ void rstpPrtInit(RstpBridgePort *port)
 void rstpPrtFsm(RstpBridgePort *port)
 {
    //The selected port role is updated by Port Role Selection state machine
-   if(port->role != port->selectedRole)
+   if(port->role != port->selectedRole && port->selected && !port->updtInfo)
    {
       //Check the newly computed role for the port
       switch(port->selectedRole)

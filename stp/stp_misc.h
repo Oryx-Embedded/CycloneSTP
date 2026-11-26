@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 #ifndef _STP_MISC_H
@@ -61,6 +61,8 @@ StpBridgePort *stpGetBridgePort(StpBridgeContext *context, uint16_t portId);
 int_t stpComparePortNum(uint16_t portId1, uint16_t portId2);
 int_t stpCompareBridgeAddr(const MacAddr *addr1, const MacAddr *addr2);
 int_t stpCompareBridgeId(const StpBridgeId *id1, const StpBridgeId *id2);
+
+uint32_t stpAddPathCost(uint32_t cost1, uint32_t cost2);
 
 void stpUpdateTopologyChange(StpBridgeContext *context, bool_t value);
 void stpUpdatePortState(StpBridgePort *port, StpPortState state);

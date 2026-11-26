@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -282,6 +282,16 @@ void stpRecordConfigTimeoutValues(StpBridgeContext *context, const StpBpdu *bpdu
    context->helloTime = ntohs(bpdu->helloTime) / 256;
    context->forwardDelay = ntohs(bpdu->forwardDelay) / 256;
 
+   //Clamp the received timer values to their permitted ranges
+   context->maxAge = MAX(context->maxAge, STP_MIN_BRIDGE_MAX_AGE);
+   context->maxAge = MIN(context->maxAge, STP_MAX_BRIDGE_MAX_AGE);
+
+   context->helloTime = MAX(context->helloTime, STP_MIN_BRIDGE_HELLO_TIME);
+   context->helloTime = MIN(context->helloTime, STP_MAX_BRIDGE_HELLO_TIME);
+
+   context->forwardDelay = MAX(context->forwardDelay, STP_MIN_BRIDGE_FORWARD_DELAY);
+   context->forwardDelay = MIN(context->forwardDelay, STP_MAX_BRIDGE_FORWARD_DELAY);
+
    //The Topology Change parameter held by the bridge is set to the value of
    //the Topology Change flag conveyed in the received Configuration BPDU
    if((bpdu->flags & STP_BPDU_FLAG_TC) != 0)
@@ -430,14 +440,14 @@ void stpRootSelection(StpBridgeContext *context)
             &rootPort->designatedRoot) > 0)
          {
          }
-         else if((port->designatedCost + port->pathCost) <
-            (rootPort->designatedCost + rootPort->pathCost))
+         else if(stpAddPathCost(port->designatedCost, port->pathCost) <
+            stpAddPathCost(rootPort->designatedCost, rootPort->pathCost))
          {
             //This port has the lowest Root Path Cost
             rootPort = port;
          }
-         else if((port->designatedCost + port->pathCost) >
-            (rootPort->designatedCost + rootPort->pathCost))
+         else if(stpAddPathCost(port->designatedCost, port->pathCost) >
+            stpAddPathCost(rootPort->designatedCost, rootPort->pathCost))
          {
          }
          else if(stpCompareBridgeId(&port->designatedBridge,
@@ -499,7 +509,8 @@ void stpRootSelection(StpBridgeContext *context)
 
       //The value of the Root Path Cost parameter held by the bridge is set to
       //the value of the Root Path Cost parameter associated with the Root port
-      context->rootPathCost = rootPort->designatedCost + rootPort->pathCost;
+      context->rootPathCost = stpAddPathCost(rootPort->designatedCost,
+         rootPort->pathCost);
    }
 }
 

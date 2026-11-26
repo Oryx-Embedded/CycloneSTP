@@ -1,5 +1,5 @@
 /**
- * @file bridge_mib_impl.c
+ * @file bridge_mib_impl_tp.c
  * @brief Bridge MIB module implementation (dot1dTp subtree)
  *
  * @section License
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -218,7 +218,9 @@ error_t bridgeMibGetDot1dTpFdbEntry(const MibObject *object, const uint8_t *oid,
 
    //Make sure the network interface is valid
    if(bridgeMibBase.interface == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Point to the underlying interface
    interface = bridgeMibBase.interface;
@@ -230,11 +232,15 @@ error_t bridgeMibGetDot1dTpFdbEntry(const MibObject *object, const uint8_t *oid,
    error = mibDecodeMacAddr(oid, oidLen, &n, &dot1dTpFdbAddress);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //Search the dynamic MAC table for the specified address
    for(i = 0; !error; i++)
@@ -247,7 +253,9 @@ error_t bridgeMibGetDot1dTpFdbEntry(const MibObject *object, const uint8_t *oid,
       {
          //Check whether the current entry matches the specified address
          if(macCompAddr(&entry.macAddr, &dot1dTpFdbAddress))
+         {
             break;
+         }
       }
       else if(error == ERROR_INVALID_ENTRY)
       {
@@ -262,7 +270,9 @@ error_t bridgeMibGetDot1dTpFdbEntry(const MibObject *object, const uint8_t *oid,
 
    //No matching entry?
    if(error)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //dot1dTpFdbAddress object?
    if(osStrcmp(object->name, "dot1dTpFdbAddress") == 0)
@@ -334,14 +344,18 @@ error_t bridgeMibGetNextDot1dTpFdbEntry(const MibObject *object, const uint8_t *
 
    //Make sure the network interface is valid
    if(bridgeMibBase.interface == NULL)
+   {
       return ERROR_OBJECT_NOT_FOUND;
+   }
 
    //Point to the underlying interface
    interface = bridgeMibBase.interface;
 
    //Make sure the buffer is large enough to hold the OID prefix
    if(*nextOidLen < object->oidLen)
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Copy OID prefix
    osMemcpy(nextOid, object->oid, object->oidLen);
@@ -365,7 +379,9 @@ error_t bridgeMibGetNextDot1dTpFdbEntry(const MibObject *object, const uint8_t *
          error = mibEncodeMacAddr(nextOid, *nextOidLen, &n, &entry.macAddr);
          //Any error to report?
          if(error)
+         {
             return error;
+         }
 
          //Check whether the resulting object identifier lexicographically
          //follows the specified OID
@@ -394,7 +410,9 @@ error_t bridgeMibGetNextDot1dTpFdbEntry(const MibObject *object, const uint8_t *
    //The specified OID does not lexicographically precede the name
    //of some object?
    if(mibCompMacAddr(&macAddr, &MAC_UNSPECIFIED_ADDR) == 0)
+   {
       return ERROR_OBJECT_NOT_FOUND;
+   }
 
    //Append the instance identifier to the OID prefix
    n = object->oidLen;
@@ -403,7 +421,9 @@ error_t bridgeMibGetNextDot1dTpFdbEntry(const MibObject *object, const uint8_t *
    error = mibEncodeMacAddr(nextOid, *nextOidLen, &n, &macAddr);
    //Any error to report?
    if(error)
+   {
       return error;
+   }
 
    //Save the length of the resulting object identifier
    *nextOidLen = n;
@@ -436,15 +456,21 @@ error_t bridgeMibGetDot1dTpPortEntry(const MibObject *object, const uint8_t *oid
    error = mibDecodePort(oid, oidLen, &n, &dot1dTpPort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //Invalid port number?
    if(bridgeMibGetPortIndex(dot1dTpPort) == 0)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //dot1dTpPort object?
    if(osStrcmp(object->name, "dot1dTpPort") == 0)
@@ -518,7 +544,9 @@ error_t bridgeMibGetNextDot1dTpPortEntry(const MibObject *object, const uint8_t 
 
    //Make sure the buffer is large enough to hold the OID prefix
    if(*nextOidLen < object->oidLen)
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Copy OID prefix
    osMemcpy(nextOid, object->oid, object->oidLen);
@@ -539,7 +567,9 @@ error_t bridgeMibGetNextDot1dTpPortEntry(const MibObject *object, const uint8_t 
       error = mibEncodeIndex(nextOid, *nextOidLen, &n, curPortNum);
       //Any error to report?
       if(error)
+      {
          return error;
+      }
 
       //Check whether the resulting object identifier lexicographically
       //follows the specified OID
@@ -557,7 +587,9 @@ error_t bridgeMibGetNextDot1dTpPortEntry(const MibObject *object, const uint8_t 
    //The specified OID does not lexicographically precede the name
    //of some object?
    if(portNum == 0)
+   {
       return ERROR_OBJECT_NOT_FOUND;
+   }
 
    //Append the instance identifier to the OID prefix
    n = object->oidLen;
@@ -566,7 +598,9 @@ error_t bridgeMibGetNextDot1dTpPortEntry(const MibObject *object, const uint8_t 
    error = mibEncodeIndex(nextOid, *nextOidLen, &n, portNum);
    //Any error to report?
    if(error)
+   {
       return error;
+   }
 
    //Save the length of the resulting object identifier
    *nextOidLen = n;

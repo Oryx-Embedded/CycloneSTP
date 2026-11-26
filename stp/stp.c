@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -77,18 +77,21 @@ error_t stpInit(StpBridgeContext *context, StpBridgeSettings *settings)
 
    //Ensure the parameters are valid
    if(context == NULL || settings == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //The bridge must be bound to a valid interface
    if(settings->interface == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //Sanity check
    if(settings->numPorts < 1 || settings->ports == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
-
-   //Get exclusive access
-   stpLock(context);
+   }
 
    //Clear STP bridge context
    osMemset(context, 0, sizeof(StpBridgeContext));
@@ -140,9 +143,10 @@ error_t stpInit(StpBridgeContext *context, StpBridgeSettings *settings)
       port->state = STP_PORT_STATE_DISABLED;
    }
 
+   //Get exclusive access
+   stpLock(context);
    //Initialization procedure
    stpInitProc(context);
-
    //Release exclusive access
    stpUnlock(context);
 
@@ -164,7 +168,9 @@ error_t stpStart(StpBridgeContext *context)
 
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //Debug message
    TRACE_INFO("Starting STP bridge...\r\n");
@@ -186,26 +192,34 @@ error_t stpStart(StpBridgeContext *context)
          error = ethAcceptMacAddr(interface, &STP_BRIDGE_GROUP_ADDR);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //Configure the permanent database
          error = stpConfigurePermanentDatabase(context);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //Register a callback to process incoming LLC frames
          error = ethAttachLlcRxCallback(interface, stpProcessLlcFrame, context);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //Register timer callback
          error = netAttachTimerCallback(context->netContext, STP_TICK_INTERVAL,
             (NetTimerCallback) stpTick, context);
          //Any error to report?
          if(error)
+         {
             break;
+         }
 
          //The STP bridge is now running
          context->running = TRUE;
@@ -257,7 +271,9 @@ error_t stpStop(StpBridgeContext *context)
 
    //Make sure the STP bridge context is valid
    if(context == NULL)
+   {
       return ERROR_INVALID_PARAMETER;
+   }
 
    //Debug message
    TRACE_INFO("Stopping STP bridge...\r\n");

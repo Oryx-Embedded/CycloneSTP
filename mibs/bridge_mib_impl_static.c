@@ -1,5 +1,5 @@
 /**
- * @file bridge_mib_impl.c
+ * @file bridge_mib_impl_static.c
  * @brief Bridge MIB module implementation (dot1dStatic subtree)
  *
  * @section License
@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -73,7 +73,9 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
 
    //Make sure the network interface is valid
    if(bridgeMibBase.interface == NULL)
+   {
       return ERROR_WRITE_FAILED;
+   }
 
    //Point to the underlying interface
    interface = bridgeMibBase.interface;
@@ -85,17 +87,23 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
    error = mibDecodeMacAddr(oid, oidLen, &n, &dot1dStaticAddress);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //dot1dStaticReceivePort is used as 2nd instance identifier
    error = mibDecodePort(oid, oidLen, &n, &dot1dStaticReceivePort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //Search the static MAC table for a matching row
    for(found = FALSE, i = 0; !error; i++)
@@ -147,12 +155,16 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
    {
       //Ensure the length of the MAC address is valid
       if(valueLen != sizeof(MacAddr))
+      {
          return ERROR_WRONG_LENGTH;
+      }
 
       //This object indicates the destination MAC address in a frame to which
       //this entry's filtering information applies
       if(!macCompAddr(value->octetString, &dot1dStaticAddress))
+      {
          return ERROR_INCONSISTENT_VALUE;
+      }
    }
    //dot1dStaticReceivePort object?
    else if(osStrcmp(object->name, "dot1dStaticReceivePort") == 0)
@@ -162,7 +174,9 @@ error_t bridgeMibSetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
       //apply. A value of zero indicates that this entry applies on all ports
       //of the bridge for which there is no other applicable entry
       if(value->integer != dot1dStaticReceivePort)
+      {
          return ERROR_INCONSISTENT_VALUE;
+      }
    }
    //dot1dStaticAllowedToGoTo object?
    else if(osStrcmp(object->name, "dot1dStaticAllowedToGoTo") == 0)
@@ -286,7 +300,9 @@ error_t bridgeMibGetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
 
    //Make sure the network interface is valid
    if(bridgeMibBase.interface == NULL)
+   {
       return ERROR_READ_FAILED;
+   }
 
    //Point to the underlying interface
    interface = bridgeMibBase.interface;
@@ -298,17 +314,23 @@ error_t bridgeMibGetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
    error = mibDecodeMacAddr(oid, oidLen, &n, &dot1dStaticAddress);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //dot1dStaticReceivePort is used as 2nd instance identifier
    error = mibDecodePort(oid, oidLen, &n, &dot1dStaticReceivePort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //Search the static MAC table for a matching row
    for(i = 0; !error; i++)
@@ -340,7 +362,9 @@ error_t bridgeMibGetDot1dStaticEntry(const MibObject *object, const uint8_t *oid
 
    //No matching entry?
    if(error)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //dot1dStaticAddress object?
    if(osStrcmp(object->name, "dot1dStaticAddress") == 0)
@@ -456,14 +480,18 @@ error_t bridgeMibGetNextDot1dStaticEntry(const MibObject *object, const uint8_t 
 
    //Make sure the network interface is valid
    if(bridgeMibBase.interface == NULL)
+   {
       return ERROR_OBJECT_NOT_FOUND;
+   }
 
    //Point to the underlying interface
    interface = bridgeMibBase.interface;
 
    //Make sure the buffer is large enough to hold the OID prefix
    if(*nextOidLen < object->oidLen)
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Copy OID prefix
    osMemcpy(nextOid, object->oid, object->oidLen);
@@ -487,13 +515,17 @@ error_t bridgeMibGetNextDot1dStaticEntry(const MibObject *object, const uint8_t 
          error = mibEncodeMacAddr(nextOid, *nextOidLen, &n, &entry.macAddr);
          //Invalid instance identifier?
          if(error)
+         {
             return error;
+         }
 
          //dot1dStaticReceivePort is used as 2nd instance identifier
          error = mibEncodePort(nextOid, *nextOidLen, &n, entry.srcPort);
          //Invalid instance identifier?
          if(error)
+         {
             return error;
+         }
 
          //Check whether the resulting object identifier lexicographically
          //follows the specified OID
@@ -544,7 +576,9 @@ error_t bridgeMibGetNextDot1dStaticEntry(const MibObject *object, const uint8_t 
    //The specified OID does not lexicographically precede the name
    //of some object?
    if(mibCompMacAddr(&macAddr, &MAC_UNSPECIFIED_ADDR) == 0)
+   {
       return ERROR_OBJECT_NOT_FOUND;
+   }
 
    //Append the instance identifier to the OID prefix
    n = object->oidLen;
@@ -553,13 +587,17 @@ error_t bridgeMibGetNextDot1dStaticEntry(const MibObject *object, const uint8_t 
    error = mibEncodeMacAddr(nextOid, *nextOidLen, &n, &macAddr);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //dot1dStaticReceivePort is used as 2nd instance identifier
    error = mibEncodePort(nextOid, *nextOidLen, &n, srcPort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Save the length of the resulting object identifier
    *nextOidLen = n;

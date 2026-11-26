@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -254,11 +254,15 @@ error_t rstpMibSetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
    error = mibDecodePort(oid, oidLen, &n, &dot1dStpPort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //dot1dStpPortProtocolMigration object?
    if(osStrcmp(object->name, "dot1dStpPortProtocolMigration") == 0)
@@ -400,11 +404,15 @@ error_t rstpMibGetDot1dStpExtPortEntry(const MibObject *object, const uint8_t *o
    error = mibDecodePort(oid, oidLen, &n, &dot1dStpPort);
    //Invalid instance identifier?
    if(error)
+   {
       return error;
+   }
 
    //Sanity check
    if(n != oidLen)
+   {
       return ERROR_INSTANCE_NOT_FOUND;
+   }
 
    //dot1dStpPortProtocolMigration object?
    if(osStrcmp(object->name, "dot1dStpPortProtocolMigration") == 0)
@@ -578,7 +586,9 @@ error_t rstpMibGetNextDot1dStpExtPortEntry(const MibObject *object, const uint8_
 
    //Make sure the buffer is large enough to hold the OID prefix
    if(*nextOidLen < object->oidLen)
+   {
       return ERROR_BUFFER_OVERFLOW;
+   }
 
    //Copy OID prefix
    osMemcpy(nextOid, object->oid, object->oidLen);
@@ -596,7 +606,9 @@ error_t rstpMibGetNextDot1dStpExtPortEntry(const MibObject *object, const uint8_
       error = mibEncodeIndex(nextOid, *nextOidLen, &n, curPortNum);
       //Any error to report?
       if(error)
+      {
          return error;
+      }
 
       //Check whether the resulting object identifier lexicographically
       //follows the specified OID
@@ -614,7 +626,9 @@ error_t rstpMibGetNextDot1dStpExtPortEntry(const MibObject *object, const uint8_
    //The specified OID does not lexicographically precede the name
    //of some object?
    if(portNum == 0)
+   {
       return ERROR_OBJECT_NOT_FOUND;
+   }
 
    //Append the instance identifier to the OID prefix
    n = object->oidLen;
@@ -623,7 +637,9 @@ error_t rstpMibGetNextDot1dStpExtPortEntry(const MibObject *object, const uint8_
    error = mibEncodeIndex(nextOid, *nextOidLen, &n, portNum);
    //Any error to report?
    if(error)
+   {
       return error;
+   }
 
    //Save the length of the resulting object identifier
    *nextOidLen = n;

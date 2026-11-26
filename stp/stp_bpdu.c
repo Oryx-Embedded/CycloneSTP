@@ -25,7 +25,7 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
  * @author Oryx Embedded SARL (www.oryx-embedded.com)
- * @version 2.6.6
+ * @version 2.6.8
  **/
 
 //Switch to the appropriate trace level
@@ -83,11 +83,15 @@ void stpProcessLlcFrame(NetInterface *interface, EthHeader *ethHeader,
    //A MAC frame conveying a BPDU carries the Bridge Group Address in the
    //destination address field (refer to IEEE Std 802.1D-1998, section 8.3.2)
    if(!macCompAddr(&ethHeader->destAddr, &STP_BRIDGE_GROUP_ADDR))
+   {
       return;
+   }
 
    //Check the length of the LLC frame
    if(length < sizeof(LlcHeader))
+   {
       return;
+   }
 
    //Point to the LLC header
    llcHeader = (LlcHeader *) data;
@@ -103,7 +107,9 @@ void stpProcessLlcFrame(NetInterface *interface, EthHeader *ethHeader,
 
    //Invalid port number?
    if(ancillary->port < 1 || ancillary->port > context->numPorts)
+   {
       return;
+   }
 
    //Retrieve the port that matches the specified port number
    port = &context->ports[ancillary->port - 1];
@@ -139,22 +145,30 @@ error_t stpProcessBpdu(StpBridgePort *port, const StpBpdu *bpdu,
 
    //The BPDU must contain at least four octets
    if(length < STP_MIN_BPDU_SIZE)
+   {
       return ERROR_INVALID_LENGTH;
+   }
 
    //The Protocol Identifier must have the value specified for BPDUs
    if(ntohs(bpdu->protocolId) != STP_PROTOCOL_ID)
+   {
       return ERROR_INVALID_LENGTH;
+   }
 
    //Check BPDU type
    if(bpdu->bpduType == STP_BPDU_TYPE_CONFIG)
    {
       //A Configuration BPDU must contain at least 35 octets
       if(length < STP_CONFIG_BPDU_SIZE)
+      {
          return ERROR_INVALID_LENGTH;
+      }
 
       //The BPDU's Message Age must be less than its Max Age parameter
       if(ntohs(bpdu->messageAge) >= ntohs(bpdu->maxAge))
+      {
          return ERROR_INVALID_PACKET;
+      }
 
       //The Received Configuration BPDU procedure is invoked
       stpReceivedConfigBpdu(port, bpdu);
@@ -271,7 +285,9 @@ error_t stpDumpBpdu(const StpBpdu *bpdu, size_t length)
 
    //The BPDU must contain at least four octets
    if(length < STP_MIN_BPDU_SIZE)
+   {
       return ERROR_INVALID_LENGTH;
+   }
 
    //Dump Protocol Identifier
    TRACE_DEBUG("  Protocol Identifier = %" PRIu16 "\r\n",
@@ -361,6 +377,11 @@ void stpDumpFlags(uint8_t flags)
             TRACE_DEBUG("Tc");
             //Clear flag
             flags &= ~STP_BPDU_FLAG_TC;
+         }
+         else
+         {
+            //Clear the remaining flags
+            flags = 0;
          }
 
          //Any other flag set?
